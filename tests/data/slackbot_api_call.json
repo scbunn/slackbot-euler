@@ -1,0 +1,15 @@
+{
+    "api_call": {
+        "ok": true,
+        "items": [
+            {
+                "id": "0",
+                "name": "item1"
+            },
+            {
+                "id": "1",
+                "name": "item2"
+            }
+        ]
+    }
+} 
