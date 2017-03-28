@@ -1,0 +1,32 @@
+{
+    "event_messages":
+    [
+        {
+            "type": "message",
+            "channel": "C3D5PL8AG",
+            "user": "U3CCY7FQ9",
+            "text": "This is channel text",
+            "ts": "1490572789.376256",
+            "source_team": "T3D6007K7",
+            "team": "T3D6007K7"
+        },
+        {
+            "type": "message",
+            "channel": "C3D5PL8AG",
+            "user": "U3CCY7FQ9",
+            "text": "<@U023BECGF> this is a bot mention",
+            "ts": "1490572796.376793",
+            "source_team": "T3D6007K7",
+            "team": "T3D6007K7"
+        },
+        {
+            "type": "message",
+            "channel": "D024BE7RE",
+            "user": "U3CCY7FQ9",
+            "text": "This is a direct message",
+            "ts": "1490572803.219554",
+            "source_team": "T3D6007K7",
+            "team": "T3D6007K7"
+        }
+    ]
+}

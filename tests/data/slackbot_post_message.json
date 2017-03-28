@@ -1,0 +1,10 @@
+{
+    "post_message": {
+        "ok": true,
+        "ts": "1405895017.000506",
+        "channel": "C024BE91L",
+        "message": {
+            "text": "This is a *bold* message with a :goat: emoji and some `code`"
+        }
+    }
+}

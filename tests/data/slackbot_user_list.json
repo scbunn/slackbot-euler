@@ -1,0 +1,71 @@
+{
+    "user_list": {
+        "ok": true,
+        "members": [
+            {
+                "id": "U023BECGF",
+                "team_id": "T021F9ZE2",
+                "name": "testgoat",
+                "deleted": false,
+                "status": null,
+                "color": "9f69e7",
+                "real_name": "Testing Goat",
+                "tz": "America\/Los_Angeles",
+                "tz_label": "Pacific Daylight Time",
+                "tz_offset": -25200,
+                "profile": {
+                    "avatar_hash": "ge3b51ca72de",
+                    "first_name": "Testing",
+                    "last_name": "Goat",
+                    "real_name": "Testing Goat",
+                    "email": "testinggoat@slack.com",
+                    "skype": "my-skype-name",
+                    "phone": "+1 (123) 456 7890",
+                    "image_24": "https: \/\/...",
+                    "image_32": "https:\/\/...",
+                    "image_48": "https:\/\/...",
+                    "image_72": "https:\/\/...",
+                    "image_192": "https:\/\/..."
+                },
+                "is_admin": false,
+                "is_owner": false,
+                "is_primary_owner": false,
+                "is_restricted": false,
+                "is_ultra_restricted": false,
+                "is_bot": true
+            },
+            {
+                "id": "U3CC7ABC0",
+                "team_id": "T00AM2QL9",
+                "name": "scbunn",
+                "deleted": false,
+                "status": null,
+                "color": "9f69e7",
+                "real_name": "Stephen Bunn",
+                "tz": "America\/Los_Angeles",
+                "tz_label": "Pacific Standard Time",
+                "tz_offset": -28800,
+                "profile": {
+                    "first_name": "Stephen",
+                    "last_name": "Bunn",
+                    "avatar_hash": "g387606e3b10",
+                    "real_name": "Stephen Bunn",
+                    "real_name_normalized": "Stephen Bunn",
+                    "email": "scbunn@sbunn.org",
+                    "image_24": "https: \/\/...",
+                    "image_32": "https:\/\/...",
+                    "image_48": "https:\/\/...",
+                    "image_72": "https:\/\/...",
+                    "image_192": "https:\/\/..."
+                },
+                "is_admin": true,
+                "is_owner": true,
+                "is_primary_owner": true,
+                "is_restricted": false,
+                "is_ultra_restricted": false,
+                "is_bot": false,
+                "has_2fa": false
+            }
+        ]
+    }
+}
