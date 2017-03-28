@@ -3,5 +3,5 @@ python:
     - "3.4"
     - "3.6"
     - "nightly"
-install: pip install -r tests/requirements.txt"
+install: pip install -r tests/requirements.txt
 script: python -m pytest --spec --flake --cov=eulerbot --cov-report term-missing tests/
