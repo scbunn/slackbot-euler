@@ -2,16 +2,11 @@
 
 Unit test the support integration module."""
 import pytest
-import string
-import spacy
 import testing_data as TD
 from eulerbot.integrations.support import ChannelSupport
 from unittest.mock import MagicMock
 
-
-def text_blob_id(param):
-    """Return a test id for large text blobs."""
-    return "Slack event text: {}...".format(param[-10:-1])
+pytestmark = pytest.mark.support_integration
 
 
 @pytest.fixture
@@ -19,36 +14,11 @@ def Module(MockEulerBot):
     """ChannelSupport integration module instance."""
     MockEulerBot.sc.rtm_connect = MagicMock(autospec=True)
     MockEulerBot.sc.rtm_read = MagicMock(autospec=True)
-    return ChannelSupport(MockEulerBot)
-
-
-@pytest.mark.parametrize("v, t", [
-    ("_parser", None),
-    ("trigger_words", list)
-])
-def test_module_default_initialization_state(Module, v, t):
-    """Test that the module has a default state that is expected"""
-    if t is None:
-        assert Module.__dict__[v] is None
-    else:
-        assert isinstance(Module.__dict__[v], t)
-
-
-@pytest.mark.slow
-@pytest.mark.NLP
-def test_nlp_parser_property_loads_once(Module):
-    """Test that we only load NLP parser once"""
-    Module.parser
-    assert Module._parser is not None
-    Module.parser
-
-
-@pytest.mark.slow
-@pytest.mark.NLP
-def test_nlp_parser_property_loads_spacy_english_parser(Module):
-    """Test that spacy loads as expected"""
-    Module.parser
-    assert isinstance(Module._parser, spacy.en.English)
+    cs = ChannelSupport(MockEulerBot)
+    cs.nlp._parser = MagicMock(autospec=True)
+    cs.ogschedule.on_call = MagicMock(autospec=True)
+    cs.ogschedule.on_call.return_value = 'testinggoat@slack.com'
+    return cs
 
 
 @pytest.mark.parametrize("word, boolean", TD.SupportChannel.get('word_bag'))
@@ -66,35 +36,49 @@ def test_channel_support_has_trigger_no_data(Module, word):
     assert not Module.has_trigger_word(word)
 
 
-def test_parsing_remove_punctuation(Module):
-    """Test that remove_punctuation works as expected."""
-    s = "This is a sentence; however, it doesn't {} work".format(
-        string.punctuation)
-    o = Module.remove_punctuation(s)
-    assert string.punctuation not in o
+def test_oncall_returns_a_valid_string(Module):
+    """Test that the on_call method always returns a valid string."""
+    assert isinstance(Module.on_call(), str)
 
 
-@pytest.mark.parametrize("blob, url", [
-    ('This is <http://www.google.com>', 'http://www.google.com'),
-    ('A second <http://www.dom.com|some site>', 'http://www.dom.com')],
-    ids=['single url', 'url with title']
-)
-def test_url_extraction(Module, blob, url):
-    """Test that url extraction works."""
-    t, r = Module.extract_urls(blob)
-    assert url in r
+def test_oncall_caches_value(Module):
+    """Test that the on_call method caches its value."""
+    with pytest.raises(KeyError):
+        Module.bot.cache.get_value('og.schedule.oncall')
+    Module.ogschedule.on_call = MagicMock(autospec=True,
+                                          return_value='citest')
+    Module.on_call()
+    assert Module.bot.cache.get_value('og.schedule.oncall')
+    assert Module.on_call() == 'citest'
+    Module.ogschedule.on_call.call_count == 1
 
 
-@pytest.mark.slow
-@pytest.mark.nlp
-@pytest.mark.parametrize("blob", TD.SupportChannel.get('text_blobs'),
-                         ids=text_blob_id)
-def test_nlp_subject_object_parsing(Module, blob):
-    """Test that various blobs don't blow parsing up.
+def test_oncall_returns_user_if_email_match(Module):
+    """Test that method returns the user ID on oncall email match."""
+    Module.bot.slack_users = MagicMock(autospec=True)
+    Module.bot.slack_users.return_value = \
+        TD.slackbot.get('user_list')['members']
+    assert Module.on_call() == 'U023BECGF'
 
-    TODO: do something better here."""
-    doc = Module.parser(blob)
-    s, o = Module._get_subject_objects(doc)
+
+def test_parse_query_returns_subject_and_object(Module):
+    """Test parse query returns a two item tuple."""
+    r = Module.parse_query('foo')
+    assert len(r) == 2
+    assert isinstance(r, tuple)
+
+
+def test_generate_repsponse_without_obj(Module):
+    """Test generate response when no object exists."""
+    assert 'should be able to help you' in Module.generate_response('test')
+
+
+def test_generate_response_with_obj(Module):
+    """Test generate response with a valid object."""
+    Module.parse_query = MagicMock(autospec=True,
+                                   return_value=('subject', 'object'))
+    r = Module.generate_response('test')
+    assert 'guaranteed to eliminate _object_' in r
 
 
 @pytest.mark.parametrize("event", TD.SupportChannel.get('test_events'))
@@ -104,9 +88,6 @@ def test_module_update_method(Module, event):
     assert b.call_count == 0
     Module.update(event)
 
+    assert Module.events_received == 1
     if event.get('text'):
-        assert Module.bot.events_processed == 1
-
-    if Module.has_trigger_word(event.get('text')):
-        assert b.call_count == 1
-        assert event.get('user') in b.call_args[0][1]
+        assert Module.events_processed == 1

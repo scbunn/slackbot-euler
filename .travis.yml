@@ -5,5 +5,5 @@ python:
     - "nightly"
 install: 
     - pip install -r tests/requirements.txt
-    - python -m spacy download en_core_web_md
+    - python -m spacy download en_core_web_sm
 script: python -m pytest --spec --flake --cov=eulerbot --cov-report term-missing tests/
