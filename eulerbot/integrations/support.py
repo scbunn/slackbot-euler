@@ -20,6 +20,9 @@ class LanguageParser(object):
         self._doc = None
         self.model = os.environ.get('SLACKBOT_SUPPORT_NLP_MODEL',
                                     'en_core_web_md')
+        self.logger.info(
+            "Loaded LanguageParser with {} spacy model.".format(
+                self.model))
 
     @property
     def parser(self):
@@ -118,9 +121,10 @@ class OpsGenieSchedule(object):
 class ChannelSupport(object):
     """Provide infrastructure engineering support for active channels."""
 
-    def __init__(self, bot, logger=None):
+    def __init__(self, bot, message_type, logger=None):
         self.logger = logger or logging.getLogger(__name__)
         self.bot = bot
+        self.message_type = message_type
         self.ogschedule = OpsGenieSchedule()
         self.nlp = LanguageParser()
         self.events_received = 0
@@ -133,6 +137,8 @@ class ChannelSupport(object):
             'support',
             '<!here|@here>'
         ]
+        self.logger.info("Loaded Support Integration for {} messages".format(
+            self.message_type))
 
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.__dict__)

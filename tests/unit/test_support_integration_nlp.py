@@ -18,7 +18,7 @@ def LPMS(mocker):
 
 
 @pytest.mark.slow
-@pytest.fixture
+@pytest.fixture()
 def LP(monkeypatch):
     """Return an instance of LanguageParser without spacy mocked."""
     monkeypatch.setenv('SLACKBOT_SUPPORT_NLP_MODEL', 'en_core_web_sm')

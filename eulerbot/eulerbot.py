@@ -33,10 +33,10 @@ class EulerBot(SlackBot):
             'mention': []
         }
         self._integrations['channel'].append(
-            support.ChannelSupport(self)
+            support.ChannelSupport(self, 'channel')
         )
         self._integrations['mention'].append(
-            support.ChannelSupport(self)
+            support.ChannelSupport(self, 'mention')
         )
         self.logger.info("Started {} with UID {}".format(
             self.name, self.uid))

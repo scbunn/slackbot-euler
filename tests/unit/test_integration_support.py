@@ -14,7 +14,7 @@ def Module(MockEulerBot):
     """ChannelSupport integration module instance."""
     MockEulerBot.sc.rtm_connect = MagicMock(autospec=True)
     MockEulerBot.sc.rtm_read = MagicMock(autospec=True)
-    cs = ChannelSupport(MockEulerBot)
+    cs = ChannelSupport(MockEulerBot, 'channel')
     cs.nlp._parser = MagicMock(autospec=True)
     cs.ogschedule.on_call = MagicMock(autospec=True)
     cs.ogschedule.on_call.return_value = 'testinggoat@slack.com'
