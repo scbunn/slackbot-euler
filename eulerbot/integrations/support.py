@@ -95,11 +95,15 @@ class OpsGenieSchedule(object):
     Retrieve current schedule information from OpsGenie"""
     def __init__(self, logger=None):
         self.logger = logger or logging.getLogger(self.__class__.__name__)
-        self.url = 'https://api.opsgenie.com/v1.1/json/schedule/'
+        self.url = 'https://api.opsgenie.com/v1.1/json/schedule'
         self.apiKey = os.environ.get('OPSGENIE_API_KEY', '')
 
     def _request(self, call, payload):
         """Retrieve call from the OpsGenie API."""
+        if not isinstance(payload, dict):
+            self.logger.error("Payload needs to be a dictionary")
+            return
+
         self.logger.debug('requesting {} with {} from OpsGenie'.format(
             call, payload))
         url = "{}/{}".format(self.url, call)
@@ -108,14 +112,21 @@ class OpsGenieSchedule(object):
         if r.status_code == 200:
             return r.json()
 
+    def on_calls(self):
+        """Return a list of all on calls"""
+        result = self._request('whoIsOnCall', {})
+        if result:
+            return result.get('oncalls')
+
     def on_call(self, team):
         """Retrieve the current on-call for `team`"""
-        payload = {'name': team}
-        result = self._request('whoIsOnCall', payload)
-        self.logger.debug(result)
-        if result:
-            return result.get('participants', [])[0].get('name', 'Unknown')
-        return "unknown"
+        oncalls = self.on_calls()
+        email = 'unknown'
+        if oncalls:
+            for t in oncalls:
+                if t.get('name') == team:
+                    email = t.get('participants')[0].get('name', 'unknown')
+        return email
 
 
 class ChannelSupport(object):

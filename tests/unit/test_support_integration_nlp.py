@@ -93,6 +93,7 @@ def test_noun_chunks_returns_empty_dict_with_no_text(LPMS):
     assert len(l) == 0
 
 
+@pytest.mark.spacy
 def test_noun_chunks_returns_a_non_empty_list(LP):
     """Test that noun_chunks returns a list of chunks."""
     LP.doc = "Let leash the dogs of war"
@@ -103,6 +104,7 @@ def test_noun_chunks_returns_a_non_empty_list(LP):
     assert len(l) > 0
 
 
+@pytest.mark.spacy
 @pytest.mark.parametrize("blob", TD.SupportChannel.get('text_blobs'),
                          ids=text_blob_id)
 def test_nlp_subject_parsing(LP, blob):
@@ -112,6 +114,7 @@ def test_nlp_subject_parsing(LP, blob):
     assert isinstance(r, str)
 
 
+@pytest.mark.spacy
 @pytest.mark.parametrize("blob", TD.SupportChannel.get('text_blobs'),
                          ids=text_blob_id)
 def test_nlp_object_parsing(LP, blob):
