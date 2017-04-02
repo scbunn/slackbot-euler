@@ -10,7 +10,7 @@ from eulerbot.integrations.support import LanguageParser
 pytestmark = pytest.mark.support_nlp
 
 
-@pytest.fixture
+@pytest.fixture()
 def LPMS(mocker):
     """Return an instance of the LanguageParser"""
     mocker.patch('spacy.load', return_value='spacy loaded')
@@ -18,10 +18,11 @@ def LPMS(mocker):
 
 
 @pytest.mark.slow
-@pytest.fixture()
-def LP(monkeypatch):
+@pytest.fixture(scope="session")
+def LP():
     """Return an instance of LanguageParser without spacy mocked."""
-    monkeypatch.setenv('SLACKBOT_SUPPORT_NLP_MODEL', 'en_core_web_sm')
+    p = LanguageParser()
+    p._parser = spacy.load('en_core_web_sm')
     return LanguageParser()
 
 
