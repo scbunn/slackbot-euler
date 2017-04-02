@@ -61,7 +61,13 @@ SupportChannel = {
     ],
     'text_blobs': [line for line in open(
         'tests/data/support_text_blobs.txt')
-        if not line.startswith('#')]
+        if not line.startswith('#')],
+    'opsgenie': {
+        'oncall': load_json(
+            'tests/data/opsgenie_oncall.json'),
+        'error': load_json(
+            'tests/data/opsgenie_oncall_error.json'),
+    },
 }
 
 

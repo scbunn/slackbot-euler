@@ -3,6 +3,7 @@
 This module contains components necessary for a basic Slack Bot."""
 import logging
 import os
+import uuid
 from beaker.cache import Cache
 from slackclient import SlackClient
 
@@ -61,8 +62,10 @@ class SlackBot(object):
         self.token = os.environ.get('SLACKBOT_TOKEN')
         self.logger = logger or logging.getLogger(__name__)
         self._uid = None
-        self.cache = Cache('slackbot', lock_dir='/tmp/slackbot.cache.d',
-                           type='memory')
+        self.uuid = uuid.uuid4()
+        self.cache = Cache('slackbot-{}'.format(self.uuid),
+                           lock_dir='/tmp/slackbot.cache.d/{}'.format(
+                               self.uuid), type='memory')
         self.expiretime = 120
         self.cache.clear()
         self._users = []
@@ -111,8 +114,6 @@ class SlackBot(object):
             return self.cache.get_value(key)
         self.logger.info("{} UID is unknown, trying to find".format(self.name))
         for user in self.slack_users():
-            print("SLACK USER: {}".format(user))
-            print("BOT NAME: {}".format(self.name))
             if self.name in user.get('name'):
                 self._uid = user.get('id')
                 self.cache.set_value(key, self._uid)
