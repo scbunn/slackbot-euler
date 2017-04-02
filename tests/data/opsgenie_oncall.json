@@ -1,0 +1,26 @@
+{
+    "took": 240,
+    "oncalls": [
+        {
+            "isEnabled": true,
+            "name": "Team1",
+            "id": "2ab25f4b-30f9-43ca-b7e3-3251a37d49b6",
+            "type": "schedule",
+            "participants": []
+        },
+        {
+            "isEnabled": true,
+            "name": "Team2",
+            "id": "f1ff3458-e255-4623-860a-89ccc1cf94d5",
+            "type": "schedule",
+            "participants": [
+                {
+                    "name": "user@team2.dom",
+                    "id": "2c00ec55-2fd3-4cac-8b4f-537ad12651c4",
+                    "type": "user",
+                    "forwarded": false
+                }
+            ]
+        }
+    ]
+}

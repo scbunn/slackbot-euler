@@ -88,10 +88,11 @@ def test_eulerbot_run_rtm_event_types(_time, event_type, EulerBotMockedRTM):
     if event_type == 'message':
         print("Events Received: {}".format(b.events_received))
         assert b.events_received == 1
+        assert b.events_processed == 1
         assert b.process_event.call_count == 1
     else:
         print("Event Type: {}".format(event_type))
-        assert b.events_received == 0
+        assert b.events_processed == 0
 
 
 @pytest.mark.parametrize("event", TD.eulerbot.get('message_events'),

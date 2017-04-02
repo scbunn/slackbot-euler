@@ -33,10 +33,10 @@ class EulerBot(SlackBot):
             'mention': []
         }
         self._integrations['channel'].append(
-            support.ChannelSupport(self)
+            support.ChannelSupport(self, 'channel')
         )
         self._integrations['mention'].append(
-            support.ChannelSupport(self)
+            support.ChannelSupport(self, 'mention')
         )
         self.logger.info("Started {} with UID {}".format(
             self.name, self.uid))
@@ -51,7 +51,6 @@ class EulerBot(SlackBot):
         """return a list of direct messages with the bot"""
         del self._dms[:]
         for dm in self._api_method("im.list").get('ims', {}):
-            print("DM: {}".format(dm))
             self._dms.append(dm.get('id'))
         return self._dms
 
@@ -96,12 +95,11 @@ class EulerBot(SlackBot):
 
             while self.running:
                 for event in self.sc.rtm_read():
-                    self.logger.debug(
-                        "**EVENT** : {}".format(event))
+                    self.events_received += 1
                     if event.get('type') == 'message':
                         _type = self._get_event_type(event)
-                        self.events_received += 1
                         self.process_event(event, _type)
+                        self.events_processed += 1
                 time.sleep(1)
         else:
             self.logger.error("Could not connect to Slack Real Time "
