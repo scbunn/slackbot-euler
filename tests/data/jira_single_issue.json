@@ -1,0 +1,83 @@
+{
+    "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+    "fields": {
+        "assignee": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.dom/secure/useravatar?size=xsmall&ownerId=user1&avatarId=13371",
+                "24x24": "https://jira.dom/secure/useravatar?size=small&ownerId=user1&avatarId=13371",
+                "32x32": "https://jira.dom/secure/useravatar?size=medium&ownerId=user1&avatarId=13371",
+                "48x48": "https://jira.dom/secure/useravatar?ownerId=user1&avatarId=13371"
+            },
+            "displayName": "Jane Doe",
+            "emailAddress": "jane.doe@dom",
+            "name": "user1",
+            "self": "https://jira.dom/rest/api/2/user?username=user1"
+        },
+        "comment": {
+            "comments": [],
+            "maxResults": 0,
+            "startAt": 0,
+            "total": 0
+        },
+        "components": [],
+        "created": "2017-03-20T19:26:14.000-0700",
+        "customfield_10003": 8.0,
+        "customfield_10751": "CIT-26",
+        "description": "This is a desciption\r\n\r\nThat has multiple lines\r\n",
+        "issuetype": {
+            "description": "Created by JIRA Agile - do not edit or delete. Issue type for a user story.",
+            "iconUrl": "https://jira.dom/images/icons/issuetypes/story.png",
+            "id": "7",
+            "name": "Story",
+            "self": "https://jira.dom/rest/api/2/issuetype/7",
+            "subtask": false
+        },
+        "labels": [
+            "salt"
+        ],
+        "priority": {
+            "iconUrl": "https://jira.dom/images/icons/priorities/major.png",
+            "id": "7",
+            "name": "P2",
+            "self": "https://jira.dom/rest/api/2/priority/7"
+        },
+        "reporter": {
+            "active": true,
+            "avatarUrls": {
+                "16x16": "https://jira.dom/secure/useravatar?size=xsmall&ownerId=user1&avatarId=13371",
+                "24x24": "https://jira.dom/secure/useravatar?size=small&ownerId=user1&avatarId=13371",
+                "32x32": "https://jira.dom/secure/useravatar?size=medium&ownerId=user1&avatarId=13371",
+                "48x48": "https://jira.dom/secure/useravatar?ownerId=user1&avatarId=13371"
+            },
+            "displayName": "Jane Doe",
+            "emailAddress": "jane.doe@dom",
+            "name": "user1",
+            "self": "https://jira.dom/rest/api/2/user?username=user1"
+        },
+        "status": {
+            "description": "",
+            "iconUrl": "https://jira.dom/images/icons/statuses/generic.png",
+            "id": "11650",
+            "name": "Review / QA",
+            "self": "https://jira.dom/rest/api/2/status/11650",
+            "statusCategory": {
+                "colorName": "blue-gray",
+                "id": 2,
+                "key": "new",
+                "name": "New",
+                "self": "https://jira.dom/rest/api/2/statuscategory/2"
+            }
+        },
+        "summary": "Do some important work",
+        "updated": "2017-03-31T14:40:39.000-0700",
+        "watches": {
+            "isWatching": false,
+            "self": "https://jira.dom/rest/api/2/issue/CIT-45/watchers",
+            "watchCount": 0
+        }
+    },
+    "id": "842488",
+    "key": "CIT-45",
+    "self": "https://jira.dom/rest/api/2/issue/842488"
+}
