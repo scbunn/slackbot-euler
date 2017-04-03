@@ -70,6 +70,17 @@ SupportChannel = {
     },
 }
 
+jira = {
+    'key_blobs': [
+        ('This text does not have a TID key', False),
+        ('This TID-a123 flags, but doesnt have a real key', True),
+        ('This TID 123 format fails too', False),
+        ('Using TID-123 should work fine', True),
+        ('Using a lowercase tid-123 works as well', True),
+        ('<http://jira.dom/browse/TID-123|foo> links work', True),
+    ]
+}
+
 
 class ErrorAfter(object):
     """Callable that will raise 'CallableExhausted' exception after
@@ -98,3 +109,36 @@ class MockIntegration(object):
 
     def update(self, event):
         self.call_count += 1
+
+
+class MockJiraIssueField(object):
+    """Mock the Jira Issues Fields"""
+    def __init__(self, call_count=0):
+        self.call_count = call_count
+
+    def __getattr__(self, name):
+        """Mock Jira Issue, Field responses"""
+        if name == 'summary':
+            return 'Ticket Summary'
+        if name == 'customfield_10751':
+            return 'EPIC-01'
+        if name == 'labels':
+            return ['label1', 'label2']
+        if name == 'components':
+            return []
+        if name == 'description':
+            return 'Ticket description\r\nSecond Line'
+        if name == 'updated':
+            return '2017-03-31T14:40:39.000-0700'
+        if name == 'created':
+            return '2017-03-20T19:26:14.000-0700'
+
+
+class MockJiraIssue(object):
+    """Mock Jira Issue object"""
+    def __init__(self, key='CIT-01', call_count=0, fields=''):
+        self.key = key
+        self.fields = MockJiraIssueField()
+
+    def permalink(self):
+        return "https://jira.dom/browse/{}".format(self.key)
