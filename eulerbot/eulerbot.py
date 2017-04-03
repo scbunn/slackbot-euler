@@ -9,6 +9,7 @@ import logging
 import time
 from eulerbot.slackbot import SlackBot
 from eulerbot.integrations import support
+from eulerbot.integrations import jira
 
 
 class EulerBot(SlackBot):
@@ -35,8 +36,8 @@ class EulerBot(SlackBot):
         self._integrations['channel'].append(
             support.ChannelSupport(self, 'channel')
         )
-        self._integrations['mention'].append(
-            support.ChannelSupport(self, 'mention')
+        self._integrations['channel'].append(
+            jira.JiraManagement(self, 'channel')
         )
         self.logger.info("Started {} with UID {}".format(
             self.name, self.uid))
