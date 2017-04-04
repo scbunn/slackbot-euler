@@ -155,3 +155,20 @@ def test_eulerbot_process_events_not_insane(event_type, EulerBotMockedRTM):
     b.process_event(event, event_type)
     for integration in b.integrations[event_type]:
         assert integration.call_count == 0
+
+
+def test_eulerbot_ignores_messages_from_slackbot(EulerBotMockedRTM):
+    """Test to make sure slackbot messages are ignored."""
+    b = EulerBotMockedRTM
+    event = {
+        'type': 'message',
+        'user': 'USLACKBOT',
+        'text': 'testing message'
+    }
+    b.sc.rtm_read.return_value = [event]
+    b.slack_users = MagicMock(autospec=True)
+    b.process_event = MagicMock(autospec=True)
+    b._get_event_type = MagicMock(autospec=True)
+    b.slack_users.return_value = TD.slackbot.get('user_list')['members']
+    b.run()
+    assert b._get_event_type.call_count == 0
