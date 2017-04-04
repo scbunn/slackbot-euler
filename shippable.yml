@@ -10,4 +10,5 @@ build:
         - mkdir -p shippable/codecoverage
         - shippable_retry pip install -r tests/requirements.txt
         - shippable_retry python -m spacy download en_core_web_sm
-        - python -m pytest --spec --flake --junitxml=shippable/testresults/tests.xml --cov=euler --cov-report xml:shippable/codecoverage/cov.xml
+        - shippable_retry python -m spacy.en.download all
+        - python -m pytest --spec --flake --junitxml=shippable/testresults/tests.xml --cov=eulerbot --cov-report xml:shippable/codecoverage/cov.xml
