@@ -1,9 +1,11 @@
 language: python
 python:
     - "3.4"
-    - "3.6"
-    - "nightly"
-install: 
+      #    - "3.6"
+      #    - "nightly"
+before_install:
+    - pip install appdirs six packaging
     - pip install -r tests/requirements.txt
+install: 
     - python -m spacy download en_core_web_sm
 script: python -m pytest --spec --flake --cov=eulerbot --cov-report term-missing -m 'not spacy' tests/
