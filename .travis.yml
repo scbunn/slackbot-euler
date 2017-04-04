@@ -3,6 +3,8 @@ python:
     - "3.4"
     - "3.6"
     - "nightly"
+before_install:
+    - pip install six
 install: 
     - pip install -r tests/requirements.txt
     - python -m spacy download en_core_web_sm
