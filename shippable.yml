@@ -1,0 +1,13 @@
+language: python
+
+python:
+    - 3.4
+    - 3.6
+
+build:
+    ci:
+        - mkdir -p shippable/testresults
+        - mkdir -p shippable/codecoverage
+        - shippable_retry pip install -r tests/requirements.txt
+        - shippable_retry python -m spacy download en_core_web_sm
+        - python -m pytest --spec --flake --junitxml=shippable/testresults/tests.xml --cov=euler --cov-report xml:shippable/codecoverage/cov.xml
