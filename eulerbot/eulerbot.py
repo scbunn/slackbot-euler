@@ -98,6 +98,8 @@ class EulerBot(SlackBot):
                 for event in self.sc.rtm_read():
                     self.events_received += 1
                     if event.get('type') == 'message':
+                        if event.get('user') == 'USLACKBOT':
+                            return
                         _type = self._get_event_type(event)
                         self.process_event(event, _type)
                         self.events_processed += 1
