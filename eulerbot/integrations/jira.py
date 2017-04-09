@@ -91,7 +91,7 @@ class IssueLink(object):
             updated = self.issue.fields.updated
             updated = dateutil.parser.parse(updated)
             ts = int(
-                mktime(updated.timetuple()) + updated.microsecond/1000000.0)
+                mktime(updated.timetuple()) + updated.microsecond / 1000000.0)
             self._attachment['ts'] = ts
             self._attachment['footer'] = 'Last updated'
             footer_icon = self.issue.fields.priority.iconUrl

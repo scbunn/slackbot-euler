@@ -84,9 +84,9 @@ def test_hash_works_with_unicode(IL):
 ])
 def test_gravatar_url_generation(IL, email_hash):
     """test that gravatar method returns valid gravatar URL"""
-    expected_url = 'https://www.gravatar.com/avatar/{}?d=mm&s=75&r=g'.format(
+    expected_url = 'https://www.gravatar.com/avatar/{}'.format(
         email_hash)
-    assert IL.gravatar(email_hash) == expected_url
+    assert expected_url in IL.gravatar(email_hash)
 
 
 def test_add_status_with_a_valid_field(IL):
@@ -284,10 +284,9 @@ def test_add_thumbnail_icon_if_assigned(IL, SlackUsers):
     type(IL.issue.fields.assignee).emailAddress = PropertyMock(
         return_value="testinggoat@slack.com")
     IL._add_thumbnail_icon()
-    thumb_url = '{}/{}'.format(
-        'https://www.gravatar.com/avatar',
-        'd08987c41a78174527758fff93d61c0e?d=mm&s=75&r=g')
-    assert IL._attachment['thumb_url'] == thumb_url
+    thumb_url = \
+        'https://www.gravatar.com/avatar/d08987c41a78174527758fff93d61c0e'
+    assert thumb_url in IL._attachment['thumb_url']
 
 
 def test_add_thumbnail_skipped_if_not_assigned(ILM):
