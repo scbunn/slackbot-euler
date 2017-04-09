@@ -89,7 +89,7 @@ class IssueLink(object):
         """Add the updated date as the ts field"""
         try:
             updated = self.issue.fields.updated
-            updated = dateutil.parser.parse(updated)
+            updated = dateutil.parser.parse(updated, ignoretz=True)
             ts = int(
                 mktime(updated.timetuple()) + updated.microsecond / 1000000.0)
             self._attachment['ts'] = ts
