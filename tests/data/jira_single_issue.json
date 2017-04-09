@@ -21,7 +21,7 @@
             "total": 0
         },
         "components": [],
-        "created": "2017-03-20T19:26:14.000-0700",
+        "created": "1969-08-15T09:00:00.000-0700",
         "customfield_10003": 8.0,
         "customfield_10751": "CIT-26",
         "description": "This is a desciption\r\n\r\nThat has multiple lines\r\n",
@@ -70,7 +70,7 @@
             }
         },
         "summary": "Do some important work",
-        "updated": "2017-03-31T14:40:39.000-0700",
+        "updated": "1972-06-17T14:40:39.000-0700",
         "watches": {
             "isWatching": false,
             "self": "https://jira.dom/rest/api/2/issue/CIT-45/watchers",

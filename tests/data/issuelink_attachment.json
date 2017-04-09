@@ -1,0 +1,30 @@
+[
+    {
+        "fallback": "Testing",
+        "color": "good",
+        "pretext": "pretext",
+        "author_name": "testing",
+        "author_link": "http://author.dom",
+        "author_icon": "http://author.dom/icon.png",
+        "title": "testing",
+        "title_link": "http://author.dom",
+        "text": "attachment text",
+        "fields": [
+            {
+                "title": "field1",
+                "value": "field1 value",
+                "short": true
+            },
+            {
+                "title": "field2",
+                "value": "field2 value",
+                "short": false
+            }
+        ],
+        "image_url": "http://author.dom/image.png",
+        "thumb_url": "http://author.dom/thumb.png",
+        "footer": "footer message",
+        "footer_icon": "http://author.dom/footer.png",
+        "ts": "77612400"
+    }
+]
