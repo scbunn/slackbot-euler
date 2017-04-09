@@ -5,6 +5,7 @@ Test the Jira Integration."""
 import beaker
 import pytest
 import testing_data as TD
+import eulerbot.integrations.jira
 from eulerbot.integrations.jira import JiraManagement
 from unittest.mock import MagicMock
 
@@ -16,6 +17,8 @@ def JiraInt(MockEulerBot):
     """Return an instance of the JiraManagement integration."""
     MockEulerBot.sc.rtm_connect = MagicMock(autospec=True)
     MockEulerBot.sc.rtm_read = MagicMock(autospec=True)
+    eulerbot.integrations.jira.IssueLink = MagicMock(autospec=True)
+    eulerbot.integrations.jira.IssueLink.side_effect = TD.MockIssueLink
     j = JiraManagement(MockEulerBot, 'channel')
     j.key = 'TID'
     return j
@@ -55,7 +58,8 @@ def test_post_issue_link_with_valid_issue(JiraInt):
     JiraInt.post_issue_link('CHANNEL', 'USER1', text)
     JiraInt.bot.post_message.assert_called_once_with(
         'CHANNEL',
-        'TID-123 <https://jira.dom/browse/TID-123|Ticket Summary>'
+        '',
+        attachments=TD.load_json('tests/data/issuelink_attachment.json')
     )
 
 

@@ -95,9 +95,8 @@ def test_slackbot_api_call_cache_timeout(slackbot):
         'api_call')
     assert eulerbot.slackbot.SlackClient.api_call.call_count == 0
     slackbot._api_method("test.timeout")
-    slackbot._api_method("test.timeout")
     assert eulerbot.slackbot.SlackClient.api_call.call_count == 1
-    time.sleep(10)
+    time.sleep(12)
     slackbot._api_method("test.timeout")
     assert eulerbot.slackbot.SlackClient.api_call.call_count == 2
 

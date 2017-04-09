@@ -129,9 +129,9 @@ class MockJiraIssueField(object):
         if name == 'description':
             return 'Ticket description\r\nSecond Line'
         if name == 'updated':
-            return '2017-03-31T14:40:39.000-0700'
+            return '1972-06-17T14:40:39.000-0700'
         if name == 'created':
-            return '2017-03-20T19:26:14.000-0700'
+            return '1969-08-15T09:00:00.000-0700'
 
 
 class MockJiraIssue(object):
@@ -142,3 +142,14 @@ class MockJiraIssue(object):
 
     def permalink(self):
         return "https://jira.dom/browse/{}".format(self.key)
+
+
+class MockIssueLink(object):
+    def __init__(self, issue, jira, users):
+        self.issue = issue
+        self.jira = jira
+        self.users = users
+
+    @property
+    def attachment(self):
+        return load_json('tests/data/issuelink_attachment.json')
