@@ -108,7 +108,7 @@ def test_add_footer_with_updated_field_no_priority(IL, IssueFields):
         return_value=IssueFields.get('updated'))
     IL._add_footer()
     assert IL._attachment['footer'] == 'Last updated'
-    assert IL._attachment['ts'] == 77668839
+    assert IL._attachment['ts'] == 77640039
 
 
 def test_add_footer_with_updated_field_and_priority(IL, IssueFields):
@@ -120,7 +120,7 @@ def test_add_footer_with_updated_field_and_priority(IL, IssueFields):
         return_value=IssueFields.get('priority').get('iconUrl'))
     IL._add_footer()
     assert IL._attachment['footer'] == 'Last updated'
-    assert IL._attachment['ts'] == 77668839
+    assert IL._attachment['ts'] == 77640039
     assert IL._attachment['footer_icon'] == IssueFields.get('priority').get(
         'iconUrl')
 

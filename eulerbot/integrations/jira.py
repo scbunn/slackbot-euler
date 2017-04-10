@@ -12,7 +12,7 @@ import jira
 import hashlib
 import urllib
 import dateutil.parser
-from time import mktime
+from datetime import timezone
 from beaker.cache import Cache
 from jira import JIRA
 
@@ -89,9 +89,8 @@ class IssueLink(object):
         """Add the updated date as the ts field"""
         try:
             updated = self.issue.fields.updated
-            updated = dateutil.parser.parse(updated)
-            ts = int(
-                mktime(updated.timetuple()) + updated.microsecond / 1000000.0)
+            updated = dateutil.parser.parse(updated, ignoretz=True)
+            ts = int(updated.replace(tzinfo=timezone.utc).timestamp())
             self._attachment['ts'] = ts
             self._attachment['footer'] = 'Last updated'
             footer_icon = self.issue.fields.priority.iconUrl
